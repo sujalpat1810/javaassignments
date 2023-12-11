@@ -1,0 +1,75 @@
+package assignment9;
+
+
+	import java.util.Scanner;
+
+	class BagObject {
+	    private String color;
+	    private double weight;
+
+	    // Static variables to keep track of total number of objects and total weight
+	    private static int totalObjects = 0;
+	    private static double totalWeight = 0;
+
+	    // Default constructor with default values
+	    public BagObject() {
+	        this.color = "DefaultColor";
+	        this.weight = 0.0;
+	        totalObjects++;
+	        totalWeight += this.weight;
+	    }
+
+	    // Parameterized constructor with user-provided information
+	    public BagObject(String color, double weight) {
+	        this.color = color;
+	        this.weight = weight;
+	        totalObjects++;
+	        totalWeight += this.weight;
+	    }
+
+	    // Static method to display total information
+	    public static void displayTotalInfo() {
+	        System.out.println("Total number of objects in the bag: " + totalObjects);
+	        System.out.println("Total weight of objects in the bag: " + totalWeight);
+	    }
+
+	    // Display object information
+	    public void displayObjectInfo() {
+	        System.out.println("Object Color: " + color);
+	        System.out.println("Object Weight: " + weight + " kg");
+	    }
+	}
+
+	//main class
+	public class Main {
+	    public static void main(String[] args) {
+	        Scanner scanner = new Scanner(System.in);
+
+	        // Create object with default values
+	        BagObject defaultObject = new BagObject();
+	        System.out.println("Object created with default values:");
+	        defaultObject.displayObjectInfo();
+
+	        // Create object with user-provided information
+	        System.out.println("\nEnter information for a new object:");
+	        System.out.print("Enter color (or press Enter for default): ");
+	        String userColor = scanner.nextLine();
+	        System.out.print("Enter weight in kg (or press Enter for default): ");
+	        String userInputWeight = scanner.nextLine();
+
+	        // Check if the user provided weight, otherwise use default
+	        double userWeight = userInputWeight.isEmpty() ? 0.0 : Double.parseDouble(userInputWeight);
+
+	        BagObject userObject = new BagObject(userColor, userWeight);
+	        System.out.println("\nObject created with user-provided information:");
+	        userObject.displayObjectInfo();
+
+	        // Display total information using static method
+	        System.out.println("\nTotal information about objects in the bag:");
+	        BagObject.displayTotalInfo();
+
+	        scanner.close();
+	    }
+	}
+
+

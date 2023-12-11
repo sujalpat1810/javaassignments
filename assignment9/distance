@@ -1,0 +1,164 @@
+package assignment7;
+
+
+	import java.util.Scanner;
+
+	// DistanceInCM class to store distance in centimeters and meters
+	class DistanceInCM {
+	    private int centimeters;
+	    private int meters;
+
+	    // Parameterized constructor
+	    public DistanceInCM(int centimeters, int meters) {
+	        this.centimeters = centimeters;
+	        this.meters = meters;
+	    }
+
+	    // Friend function to add distances
+	    public static DistanceInCM addDistances(DistanceInCM dist1, DistanceInCM dist2) {
+	        int totalCentimeters = dist1.centimeters + dist2.centimeters;
+	        int totalMeters = dist1.meters + dist2.meters + (totalCentimeters / 100);
+	        totalCentimeters %= 100;
+
+	        return new DistanceInCM(totalCentimeters, totalMeters);
+	    }
+
+	    // Friend function to subtract distances
+	    public static DistanceInCM subtractDistances(DistanceInCM dist1, DistanceInCM dist2) {
+	        int totalCentimeters = (dist1.meters * 100 + dist1.centimeters) - (dist2.meters * 100 + dist2.centimeters);
+
+	        if (totalCentimeters < 0) {
+	            totalCentimeters *= -1;
+	            return new DistanceInCM(100 - (totalCentimeters % 100), dist1.meters - dist2.meters - 1);
+	        } else {
+	            return new DistanceInCM(totalCentimeters % 100, dist1.meters - dist2.meters);
+	        }
+	    }
+
+	    // Display distance
+	    public void displayDistance() {
+	        System.out.println("Distance: " + meters + " meters and " + centimeters + " centimeters");
+	    }
+	}
+
+	// DistanceInFeet class to store distance in feet and inches
+	class DistanceInFeet {
+	    private int feet;
+	    private int inches;
+
+	    // Parameterized constructor
+	    public DistanceInFeet(int feet, int inches) {
+	        this.feet = feet;
+	        this.inches = inches;
+	    }
+
+	    // Friend function to add distances
+	    public static DistanceInFeet addDistances(DistanceInFeet dist1, DistanceInFeet dist2) {
+	        int totalInches = dist1.inches + dist2.inches;
+	        int totalFeet = dist1.feet + dist2.feet + (totalInches / 12);
+	        totalInches %= 12;
+
+	        return new DistanceInFeet(totalFeet, totalInches);
+	    }
+
+	    // Friend function to subtract distances
+	    public static DistanceInFeet subtractDistances(DistanceInFeet dist1, DistanceInFeet dist2) {
+	        int totalInches = (dist1.feet * 12 + dist1.inches) - (dist2.feet * 12 + dist2.inches);
+
+	        if (totalInches < 0) {
+	            totalInches *= -1;
+	            return new DistanceInFeet(12 - (totalInches % 12), dist1.feet - dist2.feet - 1);
+	        } else {
+	            return new DistanceInFeet(totalInches % 12, dist1.feet - dist2.feet);
+	        }
+	    }
+
+	    // Display distance
+	    public void displayDistance() {
+	        System.out.println("Distance: " + feet + " feet and " + inches + " inches");
+	    }
+	}
+
+	
+	
+	
+	
+	//main class
+	
+	
+	public class Main {
+	    public static void main(String[] args) {
+	        Scanner scanner = new Scanner(System.in);
+
+	        // Input for DistanceInCM
+	        System.out.println("Enter distance in centimeters and meters:");
+	        System.out.print("Centimeters: ");
+	        int cm = scanner.nextInt();
+	        System.out.print("Meters: ");
+	        int meters = scanner.nextInt();
+	        DistanceInCM distanceInCM1 = new DistanceInCM(cm, meters);
+
+	        // Input for DistanceInFeet
+	        System.out.println("Enter distance in feet and inches:");
+	        System.out.print("Feet: ");
+	        int feet = scanner.nextInt();
+	        System.out.print("Inches: ");
+	        int inches = scanner.nextInt();
+	        DistanceInFeet distanceInFeet1 = new DistanceInFeet(feet, inches);
+
+	        // Input for the second set of distances (missing in the original code)
+	        System.out.println("Enter the second set of distances in centimeters and meters:");
+	        System.out.print("Centimeters: ");
+	        int cm2 = scanner.nextInt();
+	        System.out.print("Meters: ");
+	        int meters2 = scanner.nextInt();
+	        DistanceInCM distanceInCM2 = new DistanceInCM(cm2, meters2);
+
+	        // Input for the second set of distances (missing in the original code)
+	        System.out.println("Enter the second set of distances in feet and inches:");
+	        System.out.print("Feet: ");
+	        int feet2 = scanner.nextInt();
+	        System.out.print("Inches: ");
+	        int inches2 = scanner.nextInt();
+	        DistanceInFeet distanceInFeet2 = new DistanceInFeet(feet2, inches2);
+
+	        // Choose operation
+	        System.out.println("Choose operation:");
+	        System.out.println("1. Add distances");
+	        System.out.println("2. Subtract distances");
+	        int choice = scanner.nextInt();
+
+	        switch (choice) {
+	            case 1:
+	                // Add distances
+	                DistanceInCM distanceSumCM = DistanceInCM.addDistances(distanceInCM1, distanceInCM2);
+	                DistanceInFeet distanceSumFeet = DistanceInFeet.addDistances(distanceInFeet1, distanceInFeet2);
+
+	                // Display results
+	                System.out.println("Sum of distances in centimeters and meters:");
+	                distanceSumCM.displayDistance();
+
+	                System.out.println("Sum of distances in feet and inches:");
+	                distanceSumFeet.displayDistance();
+	                break;
+
+	            case 2:
+	                // Subtract distances
+	                DistanceInCM distanceDiffCM = DistanceInCM.subtractDistances(distanceInCM1, distanceInCM2);
+	                DistanceInFeet distanceDiffFeet = DistanceInFeet.subtractDistances(distanceInFeet1, distanceInFeet2);
+
+	                // Display results
+	                System.out.println("Difference of distances in centimeters and meters:");
+	                distanceDiffCM.displayDistance();
+
+	                System.out.println("Difference of distances in feet and inches:");
+	                distanceDiffFeet.displayDistance();
+	                break;
+
+	            default:
+	                System.out.println("Invalid choice");
+	        }
+
+	        scanner.close();
+	    }
+	}
